@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Nom de votre extension",
+  "version": "1.0",
+  "description": "Description de votre extension",
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://logtime.42angouleme.fr/index.php"],
+      "js": ["content.js"]
+    }
+  ]
+}
