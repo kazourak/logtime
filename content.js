@@ -1,11 +1,13 @@
 var element = document.createElement("div");
 document.body.appendChild(element);
-var heuresRealisees = document.querySelector("main.container b");
-var heuresRealiseesTexte = heuresRealisees.textContent;
-var chiffres = heuresRealiseesTexte.match(/\d+/g);
-var chiffresConcatenes = chiffres.join('');
-console.log(chiffresConcatenes);
+var StringHours = document.querySelector("main.container b");
+var StringHoursText = StringHours.textContent;
+var numbers = StringHoursText.match(/\d+/g);
+var TotalHours = numbers.join('');
+console.log(TotalHours);
 
+if (TotalHours > 744)
+    TotalHours = 0;
 function daysRemainingInMonthNoWeekends() {
     let today = new Date();
     let currentMonth = today.getMonth();
@@ -33,31 +35,158 @@ function daysRemainingInMonth() {
     return days;
 }
 
-let totalHours = 151;
+let MaxHours = 151;
 let daysRemainingWithWk = daysRemainingInMonth();
 let daysRemainingWithoutWk = daysRemainingInMonthNoWeekends();
-let hoursWithWk = (totalHours - chiffresConcatenes) / daysRemainingWithWk;
-let hoursWithoutWk = (totalHours - chiffresConcatenes) / daysRemainingWithoutWk;
-if (chiffresConcatenes >= 151)
+let hoursWithWk = (MaxHours - TotalHours) / daysRemainingWithWk;
+let hoursWithoutWk = (MaxHours - TotalHours) / daysRemainingWithoutWk;
+hoursWithWk = Math.round(hoursWithWk);
+hoursWithoutWk = Math.round(hoursWithoutWk);
+if (TotalHours >= 151)
 {
     hoursWithWk = 0;
     hoursWithoutWk = 0;
 }
-if (hoursWithoutWk >= 151)
+if (hoursWithoutWk >= 151 || hoursWithWk >= 151)
 {
     hoursWithoutWk = 0;
+    hoursWithWk = 0;
 }
 const nouveauCodeSource = `
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" id="u0" href="https://fr.rakko.tools/tools/129/lib/tinymce/skins/ui/oxide/content.min.css"><link rel="stylesheet" type="text/css" id="u1" href="https://fr.rakko.tools/tools/129/lib/tinymce/skins/content/default/content.min.css"></head><body id="tinymce" class="mce-content-body " data-id="content" contenteditable="true" spellcheck="false"><h2 data-mce-style="text-align: center;" style="text-align: center;"><span style="color: rgb(0, 0, 0);" data-mce-style="color: #000000;">Log Time <strong><span style="color: rgb(224, 62, 45);" data-mce-style="color: #e03e2d;"><span style="color: rgb(35, 111, 161);" data-mce-style="color: #236fa1;">Pole Emploi</span> 💼</span></strong></span></h2><h4 data-mce-style="text-align: center;" style="text-align: center;">Parce que le Logtime basique c'est super, mais pas précis.</h4><p style="text-align: center;" data-mce-style="text-align: center;"><br data-mce-bogus="1"></p><h3 data-mce-style="text-align: center;" style="text-align: center;">Heure réalisées sur le mois en cours: <span style="color: rgb(186, 55, 42);" data-mce-style="color: #ba372a;"><strong>${chiffresConcatenes}h</strong></span>.</h3><table style="border-collapse: collapse; width: 100%; height: 44px;" border="1" data-mce-style="border-collapse: collapse; width: 100%; height: 44px;"><tbody><tr style="height: 22px;"><td style="width: 50%; height: 22px; text-align: center;"><strong>Avec les week-end</strong></td><td style="width: 50%; height: 22px; text-align: center;"><strong>Sans les week-end</strong></td></tr><tr style="height: 22px;"><td style="width: 50%; height: 22px; text-align: center;"><strong><span style="color: rgb(186, 55, 42);" data-mce-style="color: #ba372a;">${hoursWithWk}h</span></strong>. / jours</td><td style="width: 50%; height: 22px; text-align: center;"><strong><span style="color: rgb(186, 55, 42);" data-mce-style="color: #ba372a;">${hoursWithoutWk}h</span></strong>. / jours</td></tr></tbody></table><p style="text-align: center;" data-mce-style="text-align: center;"><em>Normal logtime made with ✨Potage Tomate✨ by ldournoi &amp; doc - Extension by nskiba</em></p></body></html>`;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: Cantarell, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f1f1f1;
+        }
+
+        .header {
+            padding: 20px;
+            text-align: center;
+            background: #04809f;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 40px;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a.right {
+            float: inherit;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .navbar a.active {
+            background-color: #666;
+            color: white;
+        }
+
+        .row {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap; /* IE10 */
+            flex-wrap: wrap;
+        }
+
+        .side {
+            -ms-flex: 30%; /* IE10 */
+            flex: 30%;
+            background-color: #f1f1f1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .main {
+            -ms-flex: 70%; /* IE10 */
+            flex: 70%;
+            background-color: white;
+            padding: 20px;
+        }
+
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: #ddd;
+            margin-top: auto;
+        }
+
+        @media screen and (max-width: 700px) {
+            .row {
+                flex-direction: column;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .navbar a {
+                float: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Log Time Badgeuse</h1>
+    <p>Avec une <b>touche</b> de CSS.</p>
+</div>
+
+<div class="navbar">
+    <a href="http://logtime.42angouleme.fr/logout.php" class="right">Deconnexion</a>
+</div>
+
+<div class="row">
+    <div class="side">
+        <h2>Heure réalisées sur le mois en cours:</h2>
+        <h3 style="color:#167681;">${TotalHours}h.</h3>
+        <h2>Nombre d'heure par jour à faire hors week-end:</h2>
+        <h3 style="color:#167681;">${hoursWithoutWk}h.</h3>
+        <h2>Nombre d'heure par jour à faire avec week-end:</h2>
+        <h3 style="color:#167681;">${hoursWithWk}h.</h3>
+    </div>
+</div>
+<footer class="footer">
+    <h2 style="font-family:'Cantarell Light'; font-size: 15px">Basic logtime by ldournoi & doc - Extension by nskiba</h2>
+</footer>
+
+</body>
+</html>
+`;
 document.documentElement.innerHTML = nouveauCodeSource;
 document.open();
 document.write(nouveauCodeSource);
 document.close();
-const elements = document.getElementsByTagName('*');
-
-// Parcourir tous les éléments de la page
-for (let i = 0; i < elements.length; i++) {
-    // Définir la propriété contentEditable à false
-    elements[i].contentEditable = false;
-}

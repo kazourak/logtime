@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Nom de votre extension",
+  "name": "Logtime Upgrade",
   "version": "1.0",
-  "description": "Description de votre extension",
+  "description": "Amelioration du Logtime 42 Angouleme.",
   "permissions": [
     "activeTab"
   ],
